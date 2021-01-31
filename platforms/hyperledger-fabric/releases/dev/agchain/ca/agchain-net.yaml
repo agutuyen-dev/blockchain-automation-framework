@@ -22,7 +22,7 @@ spec:
       tlsstatus: true
       admin: agchain-admin
     storage:
-      storageclassname: agchainsc
+      storageclassname: standard
       storagesize: 512Mi
     vault:
       role: vault-role

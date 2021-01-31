@@ -22,7 +22,7 @@ spec:
       tlsstatus: true
       admin: vbc-admin
     storage:
-      storageclassname: vbcsc
+      storageclassname: standard
       storagesize: 512Mi 
     vault:
       role: vault-role
