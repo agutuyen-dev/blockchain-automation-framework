@@ -1,0 +1,43 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: agchain-net-ca
+  namespace: agchain-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: agchain-net-ca
+  chart:
+    git: ssh://git@github.com/agutuyen-dev/blockchain-automation-framework.git
+    ref: local
+    path: platforms/hyperledger-fabric/charts/ca    
+  values:
+    metadata:
+      namespace: agchain-net
+      images:
+        alpineutils: index.docker.io/hyperledgerlabs/alpine-utils:1.0
+        ca: hyperledger/fabric-ca:1.4.8
+    server:
+      name: ca2
+      tlsstatus: true
+      admin: agchain-admin
+    storage:
+      storageclassname: agchainsc
+      storagesize: 512Mi
+    vault:
+      role: vault-role
+      address: http://127.0.0.1:8200
+      authpath: agchain-net-auth
+      secretcert: secret/crypto/peerOrganizations/agchain-net/ca?ca.agchain-net-cert.pem
+      secretkey: secret/crypto/peerOrganizations/agchain-net/ca?agchain-net-CA.key
+      secretadminpass: secret/credentials/agchain-net/ca/agchain?user
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+    service:
+      servicetype: ClusterIP
+      ports:
+        tcp:
+          port: 7054
+    proxy:
+      provider: none
+      type: peer
