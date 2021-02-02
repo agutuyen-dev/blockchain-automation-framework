@@ -2,11 +2,11 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: ca-server-db
-  namespace: agchain-net
+  namespace: vbc-net
   labels:
     type: local
 spec:
-  storageClassName: agchainsc
+  storageClassName: vbcsc
   capacity:
     storage: 0.5Gi
   accessModes:
